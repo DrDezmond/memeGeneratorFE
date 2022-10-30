@@ -41,12 +41,12 @@ export const Settings = () => {
     await fetch('https://meme-generator-al.herokuapp.com/upload-images', {
       body: formData,
       method: 'POST',
-      mode: 'no-cors',
+      mode: 'cors',
     })
 
     fetch('https://meme-generator-al.herokuapp.com/upload-generator-data', {
       method: 'POST',
-      mode: 'no-cors',
+      mode: 'cors',
       headers: {
         'Content-Type': 'text/plain; charset=UTF-8',
         Accept: 'application/json',
@@ -71,7 +71,11 @@ export const Settings = () => {
         <FontSize />
         <ButtonWrapper>
           <Button onClick={handleReset}>Reset</Button>
-          <Button color="success" onClick={handleGenerateMeme}>
+          <Button
+            disabled={files.length === 0}
+            color="success"
+            onClick={handleGenerateMeme}
+          >
             Generate
           </Button>
         </ButtonWrapper>
