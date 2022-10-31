@@ -1,5 +1,4 @@
 import { Container } from '@mui/system'
-import { pxToRem } from '@utils/index'
 import Image from 'next/image'
 import Link from 'next/link'
 import styled from 'styled-components'
@@ -19,7 +18,6 @@ export const LogoWrapper = styled(Link)`
   display: flex;
   font-family: 'impact';
   font-size: 24px;
-  /* justify-content: center; */
   align-items: center;
   -webkit-text-stroke: 1px black;
 `

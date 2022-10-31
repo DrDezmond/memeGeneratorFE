@@ -34,6 +34,7 @@ export const ImagePreviewWrapper = styled(Card)<{ orientation?: Orientations }>`
   padding: ${pxToRem(8)};
   flex: 3;
   ${({ orientation }) => orientationCss(orientation)}
+  overflow-y: scroll;
 `
 
 export const NoImagePreview = styled.div`
