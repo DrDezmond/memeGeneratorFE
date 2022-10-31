@@ -1,26 +1,34 @@
-import React, { useCallback, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
+import { useMutationGenerateMeme } from '@api/useMutationGenerateMeme'
+import { useMutationImagesUpload } from '@api/useMutationImagesUpload'
 import { Settings as SettingsIcon } from '@mui/icons-material'
-import { Box, Button, FormControl, Modal } from '@mui/material'
+import { Orientations } from '@projectTypes/index'
 import { initialStore } from '@store/Provider'
 import { useStore } from '@store/useStore'
 
-import { FontSize } from './FontSize'
-import { InputImages } from './InputImages'
-import { Orientation } from './Orientation'
+import { Form } from './Form'
+import { Loader } from './Loader'
+import { MemeModal } from './MemeModal'
 import {
-  ButtonWrapper,
   SettingsTitleWrapper,
   SettingsWrapper,
-  StyledBox,
   StyledTypography,
 } from './styled'
 
 export const Settings = () => {
   const [meme, setMeme] = useState(null)
+
   const [files, setStore] = useStore(store => store.files)
   const [texts] = useStore(store => store.texts)
   const [orientation] = useStore(store => store.orientation)
   const [fontSize] = useStore(store => store.fontSize)
+
+  const uploadRef = useRef(null)
+
+  const useUploadImages = useMutationImagesUpload()
+  const useGenerateMeme = useMutationGenerateMeme()
+  const isImagesLoading = useUploadImages.isLoading
+  const { isLoading } = useGenerateMeme
 
   const handleReset = useCallback(() => {
     setStore({ ...initialStore })
@@ -32,27 +40,21 @@ export const Settings = () => {
       formData.append('images', file)
     })
 
+    console.log(files)
+
     const generatorData = {
       texts,
-      orientation,
+      orientation:
+        orientation === Orientations.single
+          ? Orientations.horizontal
+          : orientation,
       fontSize,
     }
 
-    await fetch('https://meme-generator-al.herokuapp.com/upload-images', {
-      body: formData,
-      method: 'POST',
-      mode: 'cors',
-    })
+    await useUploadImages.mutateAsync(formData)
 
-    fetch('https://meme-generator-al.herokuapp.com/upload-generator-data', {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'text/plain; charset=UTF-8',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify(generatorData),
-    })
+    useGenerateMeme
+      .mutateAsync(generatorData)
       .then(res => res.text())
       .then(res => {
         setMeme(res)
@@ -65,37 +67,18 @@ export const Settings = () => {
         <StyledTypography variant="h5">Settings</StyledTypography>
         <SettingsIcon color="secondary" />
       </SettingsTitleWrapper>
-      <FormControl>
-        <Orientation />
-        <InputImages />
-        <FontSize />
-        <ButtonWrapper>
-          <Button onClick={handleReset}>Reset</Button>
-          <Button
-            disabled={files.length === 0}
-            color="success"
-            onClick={handleGenerateMeme}
-          >
-            Generate
-          </Button>
-        </ButtonWrapper>
-      </FormControl>
-      <Modal
-        open={!!meme}
-        onClose={() => {
-          setMeme('')
-          handleReset()
-        }}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <StyledBox>
-          <img
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            src={meme}
-          />
-        </StyledBox>
-      </Modal>
+      <Form
+        uploadRef={uploadRef}
+        handleReset={handleReset}
+        handleGenerateMeme={handleGenerateMeme}
+      />
+      <Loader isLoading={isImagesLoading || isLoading} />
+      <MemeModal
+        meme={meme}
+        setMeme={setMeme}
+        uploadRef={uploadRef}
+        handleReset={handleReset}
+      />
     </SettingsWrapper>
   )
 }

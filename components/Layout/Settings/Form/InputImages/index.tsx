@@ -3,11 +3,16 @@ import { Button } from '@mui/material'
 import { Orientations } from '@projectTypes/index'
 import { useStore } from '@store/useStore'
 
-export const InputImages = () => {
+type InputImagesT = {
+  uploadRef: React.RefObject<HTMLInputElement>
+}
+
+export const InputImages = ({ uploadRef }: InputImagesT) => {
   const [images, setStore] = useStore(store => store.images)
   const [orientation] = useStore(store => store.orientation)
 
   const handleFiles = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(images)
     setStore({
       images: [],
       files: [],
@@ -29,6 +34,7 @@ export const InputImages = () => {
     <div>
       <label htmlFor="upload">
         <input
+          ref={uploadRef}
           id="upload"
           name="upload"
           hidden

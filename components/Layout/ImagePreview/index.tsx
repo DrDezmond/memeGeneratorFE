@@ -1,15 +1,26 @@
+import { useEffect } from 'react'
 import { WarningAmber } from '@mui/icons-material'
 import { Typography } from '@mui/material'
 import { useStore } from '@store/useStore'
-import Image from 'next/image'
 
+import { ImageWithText } from './ImageWithText'
 import { ImagePreviewWrapper, NoImagePreview } from './styled'
 
 const orientations = { single: 1, horizontal: 2, vertical: 2, grid: 4 }
 
 export const ImagePreview = () => {
   const [orientation] = useStore(store => store.orientation)
-  const [images] = useStore(store => store.images)
+  const [images, setStore] = useStore(store => store.images)
+  const texts = {}
+  images.forEach((_, i) => {
+    texts[i] = ['', '']
+  })
+
+  useEffect(() => {
+    setStore({
+      texts,
+    })
+  }, [texts])
 
   return (
     <ImagePreviewWrapper
@@ -23,9 +34,7 @@ export const ImagePreview = () => {
           </NoImagePreview>
         ))}
       {images.length > 0 &&
-        images.map(el => (
-          <Image width={250} height={250} key={el} src={el} alt={''} />
-        ))}
+        images.map((el, i) => <ImageWithText key={el} src={el} i={i} />)}
     </ImagePreviewWrapper>
   )
 }

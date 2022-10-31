@@ -15,7 +15,7 @@ export const initialStore = {
   orientation: Orientations.single,
   fontSize: 24,
   images: [],
-  texts: { 0: ['anal', 'karnaval'] },
+  texts: { 0: ['', ''] },
   files: [],
 }
 export const StoreContext = createContext<UsesStoreReturnDataType | null>(null)
