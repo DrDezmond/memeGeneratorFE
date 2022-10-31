@@ -1,13 +1,12 @@
+import { Header } from '@components/Header'
+import { Layout } from '@components/Layout'
+import Head from 'next/head'
+import Script from 'next/script'
+
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
-
-import Head from 'next/head'
-import Script from 'next/script'
-
-import { AppBar, Container } from '@mui/material'
-import { Layout } from '@components/Layout'
 
 export default function Home() {
   return (
@@ -23,9 +22,7 @@ export default function Home() {
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3515788983358906"
         crossOrigin="anonymous"
       ></Script>
-      <AppBar color="primary" position="static">
-        <Container>Logo</Container>
-      </AppBar>
+      <Header />
       <ins
         className="adsbygoogle"
         style={{ display: 'block' }}
