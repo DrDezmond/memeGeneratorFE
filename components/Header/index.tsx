@@ -1,5 +1,6 @@
 import { AppBar } from '@mui/material'
-import Link from 'next/link'
+
+import logoPic from '../../assets/logo.png'
 
 import { HeaderContainer, LogoWrapper, StyledImage, StyledSpan } from './styled'
 
@@ -11,7 +12,7 @@ export const Header = () => {
     >
       <HeaderContainer>
         <LogoWrapper href="/">
-          <StyledImage alt="logo" width={70} height={91} src="/logo.png" />
+          <StyledImage alt="logo" src={logoPic} />
           <StyledSpan>MEME GENERATOR</StyledSpan>
         </LogoWrapper>
       </HeaderContainer>
