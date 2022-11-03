@@ -1,6 +1,11 @@
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import { GridView, ViewStream, ViewWeek, WebAsset } from '@mui/icons-material'
-import { InputLabel, SelectChangeEvent, Typography } from '@mui/material'
+import {
+  InputLabel,
+  MenuItem,
+  SelectChangeEvent,
+  Typography,
+} from '@mui/material'
 import { Orientations } from '@projectTypes/index'
 import { useStore } from '@store/useStore'
 
@@ -28,22 +33,30 @@ export const Orientation = () => {
         label="Orientation"
         onChange={handleChange}
       >
-        <StyledMenuItem value={Orientations.single}>
-          <Typography variant="body2">Single</Typography>{' '}
-          <WebAsset color="action" />
-        </StyledMenuItem>
-        <StyledMenuItem value={Orientations.horizontal}>
-          <Typography variant="body2">Horizontal</Typography>{' '}
-          <ViewWeek color="action" />
-        </StyledMenuItem>
-        <StyledMenuItem value={Orientations.vertical}>
-          <Typography variant="body2">Vertical</Typography>{' '}
-          <ViewStream color="action" />
-        </StyledMenuItem>
-        <StyledMenuItem value={Orientations.grid}>
-          <Typography variant="body2">Grid</Typography>{' '}
-          <GridView color="action" />
-        </StyledMenuItem>
+        <MenuItem value={Orientations.single}>
+          <StyledMenuItem>
+            <Typography variant="body2">Single</Typography>{' '}
+            <WebAsset color="action" />
+          </StyledMenuItem>
+        </MenuItem>
+        <MenuItem value={Orientations.horizontal}>
+          <StyledMenuItem>
+            <Typography variant="body2">Horizontal</Typography>{' '}
+            <ViewWeek color="action" />
+          </StyledMenuItem>
+        </MenuItem>
+        <MenuItem value={Orientations.vertical}>
+          <StyledMenuItem>
+            <Typography variant="body2">Vertical</Typography>{' '}
+            <ViewStream color="action" />
+          </StyledMenuItem>
+        </MenuItem>
+        <MenuItem value={Orientations.grid}>
+          <StyledMenuItem>
+            <Typography variant="body2">Grid</Typography>{' '}
+            <GridView color="action" />
+          </StyledMenuItem>
+        </MenuItem>
       </StyledSelect>
     </div>
   )
