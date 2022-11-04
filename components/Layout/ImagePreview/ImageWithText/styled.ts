@@ -1,24 +1,24 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from "styled-components";
 
-const position = top => {
+const position = (top) => {
   if (top) {
     return css`
       top: 0;
-    `
+    `;
   } else {
     return css`
       bottom: 0;
-    `
+    `;
   }
-}
+};
 
 export const StyledTextArea = styled.textarea<{
-  fontSize: number
-  top: boolean
+  fontSize: number;
+  top: boolean;
 }>`
   background: transparent;
   border: 1px dashed grey;
-  font-family: 'impact';
+  font-family: "impact";
   resize: none;
   -webkit-text-stroke: 1px black;
   font-size: ${({ fontSize }) => fontSize}px;
@@ -27,14 +27,16 @@ export const StyledTextArea = styled.textarea<{
   width: 100%;
   text-align: center;
   text-transform: uppercase;
-`
+`;
 
 export const ImageInputWrapper = styled.div`
   position: relative;
-  width: 250px;
-  height: 250px;
+  flex: 1;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-`
+  background: #000;
+`;
