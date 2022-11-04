@@ -11,17 +11,13 @@ type GeneratorDataType = {
 
 export const useMutationGenerateMeme = () => {
   return useMutation((generatorData: GeneratorDataType) => {
-    return fetch(
-      'https://meme-generator-al.herokuapp.com/upload-generator-data',
-      {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'text/plain; charset=UTF-8',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify(generatorData),
-      }
-    )
+    return fetch(`${process.env.NEXT_PUBLIC_HOST}/upload-generator-data`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain; charset=UTF-8',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(generatorData),
+    })
   })
 }
