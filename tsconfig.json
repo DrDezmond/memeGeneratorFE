@@ -6,7 +6,8 @@
       "@utils/*": ["./utils/*"],
       "@projectTypes/*": ["./projectTypes/*"],
       "@store/*": ["./store/*"],
-      "@api/*": ["./api/*"]
+      "@api/*": ["./api/*"],
+      "@hooks/*": ["./hooks/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
