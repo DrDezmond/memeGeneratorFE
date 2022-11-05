@@ -1,7 +1,7 @@
-import { Card } from "@mui/material";
-import { Orientations } from "@projectTypes/index";
-import { pxToRem } from "@utils/index";
-import styled, { css } from "styled-components";
+import { Card } from '@mui/material'
+import { Orientations } from '@projectTypes/index'
+import { pxToRem } from '@utils/index'
+import styled, { css } from 'styled-components'
 
 const orientationCss = (orientation: Orientations) => {
   const gridOptions = {
@@ -23,16 +23,16 @@ const orientationCss = (orientation: Orientations) => {
       grid-template-columns: 1fr 1fr;
       grid-gap: 2px;
     `,
-  };
-  return gridOptions[orientation];
-};
+  }
+  return gridOptions[orientation]
+}
 
 export const ImagePreviewWrapper = styled(Card)<{ orientation?: Orientations }>`
   padding: ${pxToRem(8)};
   flex: 3;
   ${({ orientation }) => orientationCss(orientation)}
-  overflow: scroll;
-`;
+  overflow: scroll !important;
+`
 
 export const NoImagePreview = styled.div`
   display: flex;
@@ -42,4 +42,4 @@ export const NoImagePreview = styled.div`
   align-items: center;
   border: 1px dashed #000;
   flex-direction: column;
-`;
+`

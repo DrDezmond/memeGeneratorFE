@@ -1,20 +1,20 @@
-import { Button } from "@mui/material";
-import { useStore } from "@store/useStore";
+import { Button } from '@mui/material'
+import { useStore } from '@store/useStore'
 
-import { FontSize } from "../FontSize";
+import { FontSize } from '../FontSize'
 
-import { InputImages } from "./InputImages";
-import { Orientation } from "./Orientation";
-import { ButtonWrapper } from "./styled";
+import { InputImages } from './InputImages'
+import { Orientation } from './Orientation'
+import { ButtonWrapper } from './styled'
 
 type FormT = {
-  uploadRef: React.RefObject<HTMLInputElement>;
-  handleReset: () => void;
-  handleGenerateMeme: () => void;
-};
+  uploadRef: React.RefObject<HTMLInputElement>
+  handleReset: () => void
+  handleGenerateMeme: () => void
+}
 
 export const Form = ({ uploadRef, handleReset, handleGenerateMeme }: FormT) => {
-  const [files] = useStore((store) => store.files);
+  const [files] = useStore(store => store.files)
 
   return (
     <>
@@ -24,8 +24,8 @@ export const Form = ({ uploadRef, handleReset, handleGenerateMeme }: FormT) => {
       <ButtonWrapper>
         <Button
           onClick={() => {
-            handleReset();
-            uploadRef.current.value = "";
+            handleReset()
+            uploadRef.current.value = ''
           }}
         >
           Reset
@@ -39,5 +39,5 @@ export const Form = ({ uploadRef, handleReset, handleGenerateMeme }: FormT) => {
         </Button>
       </ButtonWrapper>
     </>
-  );
-};
+  )
+}

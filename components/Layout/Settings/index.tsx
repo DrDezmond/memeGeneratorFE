@@ -40,8 +40,6 @@ export const Settings = () => {
       formData.append('images', file)
     })
 
-    console.log(files)
-
     const generatorData = {
       texts,
       orientation:
