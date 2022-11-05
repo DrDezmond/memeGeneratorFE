@@ -29,8 +29,9 @@ export const StyledTextArea = styled.textarea<{
   text-transform: uppercase;
 `
 
-export const ImageInputWrapper = styled.div`
+export const ImageTextWrapper = styled.div<{ width?: number }>`
   position: relative;
+  width: ${({ width }) => width + 'px'};
   display: flex;
   flex-direction: column;
   justify-content: center;

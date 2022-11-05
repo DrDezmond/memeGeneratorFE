@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { useStore } from '@store/useStore'
 import Image from 'next/image'
 
-import { ImageInputWrapper, StyledTextArea } from './styled'
+import { ImageTextWrapper, StyledTextArea } from './styled'
 
 export const ImageWithText = ({ src, i, w = 250, h = 250 }) => {
   const [fontSize] = useStore(store => store.fontSize)
@@ -24,7 +24,7 @@ export const ImageWithText = ({ src, i, w = 250, h = 250 }) => {
   }
 
   return (
-    <ImageInputWrapper>
+    <ImageTextWrapper width={w}>
       <StyledTextArea
         ref={topArea}
         placeholder={'ENTER TXT'}
@@ -44,6 +44,6 @@ export const ImageWithText = ({ src, i, w = 250, h = 250 }) => {
         top={false}
         fontSize={fontSize}
       />
-    </ImageInputWrapper>
+    </ImageTextWrapper>
   )
 }
