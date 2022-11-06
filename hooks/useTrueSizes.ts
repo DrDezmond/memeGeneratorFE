@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Orientations } from '@projectTypes/index'
+import { maxHeight } from '@mui/system'
+import { yellow } from '@mui/material/colors'
 
 export const useTrueSizes = (images: string[], orientation: Orientations) => {
   const [w, setW] = useState<number[]>([])
@@ -32,16 +34,35 @@ export const useTrueSizes = (images: string[], orientation: Orientations) => {
   if (imagesLoaded && notResized) {
     const minWidth = Math.min.apply(Math, w)
     const minHeight = Math.min.apply(Math, h)
+    const sumWidth = w.reduce(
+      (previousValue, currentValue) => previousValue + currentValue,
+      0,
+    );
+    
+    const sumHeight = h.reduce(
+      (previousValue, currentValue) => previousValue + currentValue,
+      0,
+    );
+    const sumWidthResized = sumWidth * (minHeight*images.length/sumHeight)
+    const sumHeightResized = sumHeight * (minWidth*images.length/sumWidth)
+
     if (orientation == 'horizontal') {
       w.forEach((x, i) => {
-        const newWidth = (minHeight / heights[i]) * x
+        const newWidth = (minHeight / heights[i]) * (x/sumWidthResized) * maxWidth
         widths[i] = newWidth
         heights[i] = minHeight
       })
     } else if (orientation == 'vertical' || orientation == 'grid') {
       h.forEach((y, i) => {
-        const newHeight = (minWidth / widths[i]) * y
-        widths[i] = minWidth
+        let newHeight = 0
+        if ( orientation == 'grid'){
+          newHeight = ((minWidth/sumWidth * maxWidth) / widths[i]) * y
+          widths[i] = minWidth/sumWidth * maxWidth
+        }
+        else{
+          newHeight = (minWidth / widths[i]) * y
+          widths[i] = minWidth
+        }
         heights[i] = newHeight
       })
     }
