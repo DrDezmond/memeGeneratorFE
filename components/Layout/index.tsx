@@ -1,6 +1,6 @@
-import { ImagePreview } from './ImagePreview'
-import { Settings } from './Settings'
-import { LayoutWrapper } from './styled'
+import { ImagePreview } from './ImagePreview';
+import { Settings } from './Settings';
+import { LayoutWrapper } from './styled';
 
 export const Layout = () => {
   return (
@@ -8,5 +8,5 @@ export const Layout = () => {
       <Settings />
       <ImagePreview />
     </LayoutWrapper>
-  )
-}
+  );
+};
