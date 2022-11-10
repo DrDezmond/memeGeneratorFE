@@ -37,19 +37,6 @@ export const useTrueSizes = (
   if (imagesLoaded && notResized) {
     const minWidth = Math.min.apply(Math, w);
     const minHeight = Math.min.apply(Math, h);
-    const sumWidth = w.reduce(
-      (previousValue, currentValue) => previousValue + currentValue,
-      0
-    );
-
-    const sumHeight = h.reduce(
-      (previousValue, currentValue) => previousValue + currentValue,
-      0
-    );
-    const sumWidthResized =
-      sumWidth * ((minHeight * images.length) / sumHeight);
-    const sumHeightResized =
-      sumHeight * ((minWidth * images.length) / sumWidth);
 
     if (orientation === 'single') {
       w.forEach((x, i) => {
@@ -57,7 +44,6 @@ export const useTrueSizes = (
         heights[i] = (maxWidth * h[i]) / x;
       });
     }
-
     if (orientation == 'horizontal') {
       w.forEach((x, i) => {
         widths[i] = (minHeight / heights[i]) * x;
@@ -65,14 +51,8 @@ export const useTrueSizes = (
       });
     } else if (orientation == 'vertical' || orientation == 'grid') {
       h.forEach((y, i) => {
-        let newHeight = 0;
-        if (orientation == 'grid') {
-          newHeight = (minWidth / widths[i]) * y;
-          widths[i] = minWidth;
-        } else {
-          newHeight = (minWidth / widths[i]) * y;
-          widths[i] = minWidth;
-        }
+        const newHeight = (minWidth / widths[i]) * y;
+        widths[i] = minWidth;
         heights[i] = newHeight;
       });
     }
