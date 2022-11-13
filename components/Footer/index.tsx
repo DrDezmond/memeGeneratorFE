@@ -10,7 +10,7 @@ export const Footer = () => {
   return (
     <StyledFooter>
       <Container style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-        <Image alt="logo" src={logo} />
+        <Image priority alt="logo" src={logo} />
         <Typography variant="body2">© 2022 MemeGeneratorAO,</Typography>
         <Typography>
           Created by{' '}

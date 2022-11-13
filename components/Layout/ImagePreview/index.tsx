@@ -1,31 +1,31 @@
-import { RefObject, useEffect, useRef } from 'react';
-import { useTrueSizes } from '@hooks/useTrueSizes';
-import { WarningAmber } from '@mui/icons-material';
-import { Typography } from '@mui/material';
-import { useStore } from '@store/useStore';
+import { useEffect, useRef } from 'react'
+import { useTrueSizes } from '@hooks/useTrueSizes'
+import { WarningAmber } from '@mui/icons-material'
+import { Typography } from '@mui/material'
+import { useStore } from '@store/useStore'
 
-import { ImageWithText } from './ImageWithText';
-import { ImagePreviewWrapper, NoImagePreview } from './styled';
+import { ImageWithText } from './ImageWithText'
+import { ImagePreviewWrapper, NoImagePreview } from './styled'
 
-const orientations = { single: 1, horizontal: 2, vertical: 2, grid: 4 };
+const orientations = { single: 1, horizontal: 2, vertical: 2, grid: 4 }
 
 export const ImagePreview = () => {
-  const [orientation] = useStore((store) => store.orientation);
-  const [images, setStore] = useStore((store) => store.images);
-  const parentRef = useRef(null);
+  const [orientation] = useStore(store => store.orientation)
+  const [images, setStore] = useStore(store => store.images)
+  const parentRef = useRef(null)
 
-  const { widths, heights } = useTrueSizes(images, orientation, parentRef);
+  const { widths, heights } = useTrueSizes(images, orientation, parentRef)
 
-  const texts = {};
+  const texts = {}
   images.forEach((_, i) => {
-    texts[i] = ['', ''];
-  });
+    texts[i] = ['', '']
+  })
 
   useEffect(() => {
     setStore({
       texts,
-    });
-  }, [texts]);
+    })
+  }, [texts])
 
   return (
     <ImagePreviewWrapper ref={parentRef} orientation={orientation}>
@@ -41,5 +41,5 @@ export const ImagePreview = () => {
           <ImageWithText key={el} src={el} i={i} w={widths[i]} h={heights[i]} />
         ))}
     </ImagePreviewWrapper>
-  );
-};
+  )
+}

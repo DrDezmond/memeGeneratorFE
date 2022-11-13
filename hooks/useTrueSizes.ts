@@ -1,68 +1,69 @@
-import { RefObject, useEffect, useState } from 'react';
-import { Orientations } from '@projectTypes/index';
-import { useContainerWidth } from './useContainerWidth';
+import { RefObject, useEffect, useState } from 'react'
+import { Orientations } from '@projectTypes/index'
+
+import { useContainerWidth } from './useContainerWidth'
 
 export const useTrueSizes = (
   images: string[],
   orientation: Orientations,
   ref: RefObject<HTMLDivElement>
 ) => {
-  const [w, setW] = useState<number[]>([]);
-  const [h, setH] = useState<number[]>([]);
-  const [imagesLoaded, setImagesLoaded] = useState(false);
-  const [notResized, setNotResized] = useState(true);
-  const maxWidth = useContainerWidth(ref);
+  const [w, setW] = useState<number[]>([])
+  const [h, setH] = useState<number[]>([])
+  const [imagesLoaded, setImagesLoaded] = useState(false)
+  const [notResized, setNotResized] = useState(true)
+  const maxWidth = useContainerWidth(ref)
 
-  const widths: number[] = [...w];
-  const heights: number[] = [...h];
+  const widths: number[] = [...w]
+  const heights: number[] = [...h]
 
   useEffect(() => {
     if (!imagesLoaded) {
       images.forEach((image, i) => {
-        var img = new Image();
-        img.src = image;
+        var img = new Image()
+        img.src = image
         img.onload = function () {
-          widths[i] = img.width;
-          heights[i] = img.height;
+          widths[i] = img.width
+          heights[i] = img.height
           if (i === images.length - 1) {
-            setImagesLoaded(true);
-            setW(widths);
-            setH(heights);
+            setImagesLoaded(true)
+            setW(widths)
+            setH(heights)
           }
-        };
-      });
+        }
+      })
     }
-  }, [images]);
+  }, [images])
 
   if (imagesLoaded && notResized) {
-    const minWidth = Math.min.apply(Math, w);
-    const minHeight = Math.min.apply(Math, h);
+    const minWidth = Math.min.apply(Math, w)
+    const minHeight = Math.min.apply(Math, h)
 
     if (orientation === 'single') {
       w.forEach((x, i) => {
-        widths[i] = maxWidth;
-        heights[i] = (maxWidth * h[i]) / x;
-      });
+        widths[i] = maxWidth
+        heights[i] = (maxWidth * h[i]) / x
+      })
     }
     if (orientation == 'horizontal') {
       w.forEach((x, i) => {
-        widths[i] = (minHeight / heights[i]) * x;
-        heights[i] = minHeight;
-      });
+        widths[i] = (minHeight / heights[i]) * x
+        heights[i] = minHeight
+      })
     } else if (orientation == 'vertical' || orientation == 'grid') {
       h.forEach((y, i) => {
-        const newHeight = (minWidth / widths[i]) * y;
-        widths[i] = minWidth;
-        heights[i] = newHeight;
-      });
+        const newHeight = (minWidth / widths[i]) * y
+        widths[i] = minWidth
+        heights[i] = newHeight
+      })
     }
 
-    setNotResized(false);
-    setW(widths);
-    setH(heights);
-    setImagesLoaded(false);
-    setNotResized(true);
+    setNotResized(false)
+    setW(widths)
+    setH(heights)
+    setImagesLoaded(false)
+    setNotResized(true)
   }
 
-  return { widths: w, heights: h };
-};
+  return { widths: w, heights: h }
+}

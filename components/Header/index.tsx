@@ -12,7 +12,7 @@ export const Header = () => {
     >
       <HeaderContainer>
         <LogoWrapper href="/">
-          <StyledImage alt="logo" src={logoPic} />
+          <StyledImage priority alt="logo" src={logoPic} />
           <StyledSpan>MEME GENERATOR</StyledSpan>
         </LogoWrapper>
       </HeaderContainer>
